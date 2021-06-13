@@ -94,7 +94,7 @@ const OFFER_DESTRICTION = [
   'Жилой комплекс построен в 57 этажей, имеет высоту 264 метра.',
 ];
 
-const addZero = (number) => {
+const addZero = function (number) {
   return number < 10 ? `0${number}` : number;
 };
 
