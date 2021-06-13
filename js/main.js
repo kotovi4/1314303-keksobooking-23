@@ -31,11 +31,6 @@ const OFFER_TITLE = [
   'Панорамный вид из окна',
 ];
 
-const offerPriceRange = {
-  min: 0,
-  max: 100000,
-};
-
 const OFFER_ROOM_QUANTITY = [
   1,
   2,
