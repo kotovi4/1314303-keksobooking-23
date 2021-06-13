@@ -6,7 +6,6 @@ function getRandomInt(min, max) {
   return 'Error';
 }
 getRandomInt();
-// console.log(getRandomInt(0, 100));
 
 // Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно
 function getRandomFloat(min, max, digits) {
@@ -16,8 +15,6 @@ function getRandomFloat(min, max, digits) {
   return 'Error';
 }
 getRandomFloat();
-// console.log(getRandomFloat(0, 100, 5));
-
 
 const NOMBER_OF_OFFERS = 10;
 
@@ -102,7 +99,7 @@ const OFFER_DESTRICTION = [
   'Жилой комплекс построен в 57 этажей, имеет высоту 264 метра.',
 ];
 
-const addZero = function (number) {
+const addZero = (number) => {
   return number < 10 ? `0${number}` : number;
 };
 
@@ -131,14 +128,14 @@ const createOffer = function () {
       title: OFFER_TITLE[getRandomInt(0, OFFER_TITLE.length - 1)],
       address: '',
       price: getRandomInt(1, 5000),
-      type: '',
-      rooms: getRandomInt(1, 3),
-      guests: getRandomInt(1, 6),
-      checkin: getRandomInt(OFFER_CHECKIN),
-      checkout: getRandomInt(OFFER_CHECKOUT),
-      features: getArray(OFFER_FEATURES),
-      description: '',
-      photos: [],
+      type: OFFER_TYPES[getRandomInt(0, OFFER_TYPES.length - 1)],
+      rooms: OFFER_ROOM_QUANTITY[getRandomInt(0, OFFER_ROOM_QUANTITY.length - 1)],
+      guests: OFFER_GUEST_QUANTITY[getRandomInt(0, OFFER_GUEST_QUANTITY.length - 1)],
+      checkin: OFFER_CHECKIN[getRandomInt(0, OFFER_CHECKIN.length - 1)],
+      checkout: OFFER_CHECKOUT[getRandomInt(0, OFFER_CHECKOUT.length - 1)],
+      features: OFFER_FEATURES[getArray(getRandomInt(0, OFFER_FEATURES.length - 1))],
+      description: OFFER_DESTRICTION[getRandomInt(0, OFFER_DESTRICTION.length - 1)],
+      photos: OFFER_PHOTOS[getRandomInt(0, OFFER_PHOTOS.length - 1)],
     },
     location: {
       lat: getRandomFloat(35.65000, 35.70000),
