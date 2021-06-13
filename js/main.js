@@ -114,6 +114,9 @@ const getArray = function (array) {
   return array;
 };
 
+const locationX = getRandomFloat(35.65000, 35.70000, 5);
+const locationY = getRandomFloat(139.70000, 139.80000, 5);
+
 const createOffer = function () {
   return {
     author: {
@@ -121,7 +124,7 @@ const createOffer = function () {
     },
     offer: {
       title: OFFER_TITLE[getRandomInt(0, OFFER_TITLE.length - 1)],
-      address: '',
+      address: `${locationX}, ${locationY}`,
       price: getRandomInt(1, 5000),
       type: OFFER_TYPES[getRandomInt(0, OFFER_TYPES.length - 1)],
       rooms: OFFER_ROOM_QUANTITY[getRandomInt(0, OFFER_ROOM_QUANTITY.length - 1)],
@@ -133,8 +136,8 @@ const createOffer = function () {
       photos: OFFER_PHOTOS[getRandomInt(0, OFFER_PHOTOS.length - 1)],
     },
     location: {
-      lat: getRandomFloat(35.65000, 35.70000),
-      lng: getRandomFloat(139.70000, 139.80000),
+      lat: locationX,
+      lng: locationY,
     },
   };
 };
