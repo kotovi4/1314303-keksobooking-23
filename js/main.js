@@ -1,22 +1,4 @@
-// Функция, возвращающая случайное целое число из переданного диапазона включительно
-function getRandomInt(min, max) {
-  if (min >= 0 && max > min) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-  return 'Error';
-}
-getRandomInt();
-
-// Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно
-function getRandomFloat(min, max, digits) {
-  if (min >= 0 && max > min && digits >= 0) {
-    return (Math.random() * (max - min) + min).toFixed(digits);
-  }
-  return 'Error';
-}
-getRandomFloat();
-
-const NOMBER_OF_OFFERS = 10;
+const NUMBER_OF_OFFERS = 10;
 
 const OFFER_TITLE = [
   'Квартира в центре города',
@@ -29,21 +11,6 @@ const OFFER_TITLE = [
   'Лучшее предложение',
   'Зайди - увидишь!',
   'Панорамный вид из окна',
-];
-
-const OFFER_ROOM_QUANTITY = [
-  1,
-  2,
-  3,
-];
-
-const OFFER_GUEST_QUANTITY = [
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
 ];
 
 const OFFER_CHECKIN = [
@@ -94,30 +61,47 @@ const OFFER_DESTRICTION = [
   'Жилой комплекс построен в 57 этажей, имеет высоту 264 метра.',
 ];
 
+// Функция, возвращающая случайное целое число из переданного диапазона включительно
+function getRandomInt(min, max) {
+  if (min >= 0 && max > min) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+  return 'Error';
+}
+
+// Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно
+function getRandomFloat(min, max, digits) {
+  if (min >= 0 && max > min && digits >= 0) {
+    return (Math.random() * (max - min) + min).toFixed(digits);
+  }
+  return 'Error';
+}
+
 const addZero = function (number) {
   return number < 10 ? `0${number}` : number;
 };
 
 const getArray = function (array) {
-  const maxLength = OFFER_FEATURES.length;
+  const maxLength = array.length;
   const lengthOfArray = getRandomInt(1, maxLength);
   const result = [];
 
-  while (array.length < lengthOfArray) {
+  while (result.length < lengthOfArray) {
     const indexOfEl = getRandomInt(0, maxLength - 1);
-    const el = OFFER_FEATURES[indexOfEl];
+    const el = array[indexOfEl];
 
-    if (!array.includes(el)) {
+    if (!result.includes(el)) {
       result.push(el);
     }
   }
-  return array;
+  return result;
 };
 
-const locationX = getRandomFloat(35.65000, 35.70000, 5);
-const locationY = getRandomFloat(139.70000, 139.80000, 5);
 
 const createOffer = function () {
+  const locationX = getRandomFloat(35.65000, 35.70000, 5);
+  const locationY = getRandomFloat(139.70000, 139.80000, 5);
+
   return {
     author: {
       avatar: `img/avatars/user${addZero(getRandomInt(1, 10))}.png`,
@@ -127,13 +111,13 @@ const createOffer = function () {
       address: `${locationX}, ${locationY}`,
       price: getRandomInt(1, 5000),
       type: OFFER_TYPES[getRandomInt(0, OFFER_TYPES.length - 1)],
-      rooms: OFFER_ROOM_QUANTITY[getRandomInt(0, OFFER_ROOM_QUANTITY.length - 1)],
-      guests: OFFER_GUEST_QUANTITY[getRandomInt(0, OFFER_GUEST_QUANTITY.length - 1)],
+      rooms: getRandomInt(1, 3),
+      guests: getRandomInt(1, 6),
       checkin: OFFER_CHECKIN[getRandomInt(0, OFFER_CHECKIN.length - 1)],
       checkout: OFFER_CHECKOUT[getRandomInt(0, OFFER_CHECKOUT.length - 1)],
-      features: OFFER_FEATURES[getArray(getRandomInt(0, OFFER_FEATURES.length - 1))],
+      features: getArray(OFFER_FEATURES),
       description: OFFER_DESTRICTION[getRandomInt(0, OFFER_DESTRICTION.length - 1)],
-      photos: OFFER_PHOTOS[getRandomInt(0, OFFER_PHOTOS.length - 1)],
+      photos: getArray(OFFER_PHOTOS),
     },
     location: {
       lat: locationX,
@@ -146,4 +130,4 @@ const getOffers = function (count) {
   return new Array(count).fill(null).map(() => createOffer());
 };
 
-getOffers(NOMBER_OF_OFFERS);
+getOffers(NUMBER_OF_OFFERS);
