@@ -41,5 +41,5 @@ export {
   getRandomFloat,
   addZero,
   getArray,
-  getRandomArrayElement,
+  getRandomArrayElement
 };
