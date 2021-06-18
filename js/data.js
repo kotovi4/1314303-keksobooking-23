@@ -1,4 +1,4 @@
-import {getRandomInt, getRandomFloat, addZero, getArray, getRandomArrayElement} from './utils';
+import {getRandomInt, getRandomFloat, addZero, getArray, getRandomArrayElement} from './utils.js';
 
 const NUMBER_OF_OFFERS = 10;
 
@@ -98,13 +98,6 @@ const getOffers = function (count) {
 getOffers(NUMBER_OF_OFFERS);
 
 export {
-  NUMBER_OF_OFFERS,
-  OFFER_TITLE,
-  OFFER_CHECKIN,
-  OFFER_CHECKOUT,
-  OFFER_TYPES,
-  OFFER_FEATURES,
-  OFFER_PHOTOS,
-  OFFER_DESTRICTION,
-  getOffers
+  getOffers,
+  NUMBER_OF_OFFERS
 };

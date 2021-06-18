@@ -1,3 +1,4 @@
-import {getOffers} from './data.js';
+import {getOffers, NUMBER_OF_OFFERS} from './data.js';
 
-getOffers;
+getOffers(NUMBER_OF_OFFERS);
+// console.log(getOffers(NUMBER_OF_OFFERS));
