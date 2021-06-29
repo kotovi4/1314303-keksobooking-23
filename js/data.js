@@ -99,5 +99,7 @@ getOffers(NUMBER_OF_OFFERS);
 
 export {
   getOffers,
-  NUMBER_OF_OFFERS
+  createOffer,
+  NUMBER_OF_OFFERS,
+  OFFER_FEATURES
 };
