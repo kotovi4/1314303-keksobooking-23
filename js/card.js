@@ -20,6 +20,15 @@ const fillTextContent = (element, property, textContent) => {
   }
 };
 
+const fillTextContentProperties = (element, propertyOne, propertyTwo, textContent) => {
+  if (propertyOne.length === 0 || propertyTwo.length === 0) {
+    element.add('hidden');
+    return false;
+  } else {
+    element.textContent = textContent;
+  }
+};
+
 const renderOffer = (card) => {
   const cardElement = cardTemplate.cloneNode(true);
 
@@ -27,11 +36,14 @@ const renderOffer = (card) => {
   const address = cardElement.querySelector('.popup__text--address');
   const description = cardElement.querySelector('.popup__description');
   const type = cardElement.querySelector('.popup__type');
+  const time = cardElement.querySelector('.popup__text--time');
+  const features = cardElement.querySelector('.popup__features');
 
   fillTextContent(title, card.offer.title, card.offer.title);
   fillTextContent(address, card.offer.address, card.offer.address);
   fillTextContent(description, card.offer.description, card.offer.description);
   fillTextContent(type, card.offer.type, card.offer.type);
+  fillTextContentProperties(time, card.offer.checkin, card.offer.checkout, `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`);
 
   type.textContent = TYPES[card.offer.type];
 
@@ -40,9 +52,8 @@ const renderOffer = (card) => {
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
   cardElement.querySelector('.popup__avatar').src = card.author.avatar;
 
-  const featureListElement = cardElement.querySelector('.popup__features');
   const modifiers = card.offer.features.map((feature) => `popup__feature--${feature}`);
-  featureListElement.querySelectorAll('.popup__feature').forEach((item) => {
+  features.querySelectorAll('.popup__feature').forEach((item) => {
     const modifier = item.classList[1];
 
     if (!modifiers.includes(modifier)) {
