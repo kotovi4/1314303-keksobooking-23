@@ -28,12 +28,12 @@ const renderOffer = (card) => {
   const description = cardElement.querySelector('.popup__description');
   const type = cardElement.querySelector('.popup__type');
 
-  type.textContent = TYPES[card.offer.type];
-
   fillTextContent(title, card.offer.title, card.offer.title);
   fillTextContent(address, card.offer.address, card.offer.address);
   fillTextContent(description, card.offer.description, card.offer.description);
   fillTextContent(type, card.offer.type, card.offer.type);
+
+  type.textContent = TYPES[card.offer.type];
 
   cardElement.querySelector('.popup__text--price').style.fill = `${card.offer.price} ₽/ночь`;
   cardElement.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
