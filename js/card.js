@@ -1,5 +1,8 @@
 import {createOffer} from './data.js';
 
+const mapCanvas = document.querySelector('.map__canvas');
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+
 const TYPES = {
   flat: 'Квартира',
   palace: 'Дворец',
@@ -8,26 +11,34 @@ const TYPES = {
   hotel: 'Отель',
 };
 
-const mapCanvas = document.querySelector('.map__canvas');
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+const fillTextContent = (element, property, textContent) => {
+  if (property.length === 0) {
+    element.classList.add('hidden');
+    return false;
+  } else {
+    element.textContent = textContent;
+  }
+};
 
 const renderOffer = (card) => {
   const cardElement = cardTemplate.cloneNode(true);
 
-  if (card.offer.title) {
-    cardElement.querySelector('.popup__title').textContent = card.offer.title;
-  } else {
-    cardElement.querySelector('.popup__title').classList.add('hidden');
-  }
+  const title = cardElement.querySelector('.popup__title');
+  const address = cardElement.querySelector('.popup__text--address');
+  const description = cardElement.querySelector('.popup__description');
+  const type = cardElement.querySelector('.popup__type');
 
-  cardElement.querySelector('.popup__text--address').style.fill = card.offer.adress;
+  type.textContent = TYPES[card.offer.type];
+
+  fillTextContent(title, card.offer.title, card.offer.title);
+  fillTextContent(address, card.offer.address, card.offer.address);
+  fillTextContent(description, card.offer.description, card.offer.description);
+  fillTextContent(type, card.offer.type, card.offer.type);
+
   cardElement.querySelector('.popup__text--price').style.fill = `${card.offer.price} ₽/ночь`;
-  cardElement.querySelector('.popup__type').textContent = TYPES[card.offer.type];
   cardElement.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
   cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
   cardElement.querySelector('.popup__avatar').src = card.author.avatar;
-  cardElement.querySelector('.popup__description').textContent = card.offer.description;
-
 
   const featureListElement = cardElement.querySelector('.popup__features');
   const modifiers = card.offer.features.map((feature) => `popup__feature--${feature}`);
