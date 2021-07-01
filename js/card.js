@@ -14,7 +14,6 @@ const TYPES = {
 const fillTextContent = (element, property, textContent) => {
   if (property.length === 0) {
     element.classList.add('hidden');
-    return false;
   } else {
     element.textContent = textContent;
   }
@@ -23,13 +22,49 @@ const fillTextContent = (element, property, textContent) => {
 const fillTextContentProperties = (element, propertyOne, propertyTwo, textContent) => {
   if (propertyOne.length === 0 || propertyTwo.length === 0) {
     element.add('hidden');
-    return false;
   } else {
     element.textContent = textContent;
   }
 };
 
+const fillSrc = (element, srcData) => {
+  if (element.length === 0) {
+    element.remove();
+  } else {
+    element.src = srcData;
+  }
+};
+
+const fillPrice = (element, priceData) => {
+  if (priceData.length === 0) {
+    element.remove();
+  } else {
+    element.textContent = `${priceData} ₽/ночь`;
+  }
+};
+
+const fillCapacity = (number) => {
+  let rooms = 'комнаты';
+  let guests = 'гостей';
+
+  if (number.rooms === 1) {
+    rooms = 'комната';
+  }
+  if (number.rooms === 100) {
+    rooms = 'комнат';
+  }
+  if (number.guests === 1) {
+    guests = 'гостя';
+  }
+  if (number.guests === 'не для гостей') {
+    return `${number.rooms} ${rooms} ${number.guests}`;
+  } else {
+    return `${number.rooms} ${rooms} для ${number.guests} ${guests}`;
+  }
+};
+
 const renderOffer = (card) => {
+  const {offer} = card;
   const cardElement = cardTemplate.cloneNode(true);
 
   const title = cardElement.querySelector('.popup__title');
@@ -38,19 +73,18 @@ const renderOffer = (card) => {
   const type = cardElement.querySelector('.popup__type');
   const time = cardElement.querySelector('.popup__text--time');
   const features = cardElement.querySelector('.popup__features');
+  const avatar = cardElement.querySelector('.popup__avatar');
+  const price = cardElement.querySelector('.popup__text--price');
+  const capacity = cardElement.querySelector('.popup__text--capacity');
 
   fillTextContent(title, card.offer.title, card.offer.title);
   fillTextContent(address, card.offer.address, card.offer.address);
   fillTextContent(description, card.offer.description, card.offer.description);
-  fillTextContent(type, card.offer.type, card.offer.type);
+  fillTextContent(type, card.offer.type, TYPES[card.offer.type]);
   fillTextContentProperties(time, card.offer.checkin, card.offer.checkout, `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`);
-
-  type.textContent = TYPES[card.offer.type];
-
-  cardElement.querySelector('.popup__text--price').style.fill = `${card.offer.price} ₽/ночь`;
-  cardElement.querySelector('.popup__text--capacity').textContent = `${card.offer.rooms} комнаты для ${card.offer.guests} гостей`;
-  cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${card.offer.checkin}, выезд до ${card.offer.checkout}`;
-  cardElement.querySelector('.popup__avatar').src = card.author.avatar;
+  fillSrc(avatar, card.author.avatar);
+  fillPrice(price, card.offer.price);
+  fillTextContentProperties(capacity, card.offer.rooms, card.offer.guests, fillCapacity(offer));
 
   const modifiers = card.offer.features.map((feature) => `popup__feature--${feature}`);
   features.querySelectorAll('.popup__feature').forEach((item) => {
