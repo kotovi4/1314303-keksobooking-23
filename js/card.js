@@ -29,7 +29,7 @@ const fillTextContentProperties = (element, propertyOne, propertyTwo, textConten
 
 const fillSrc = (element, src) => {
   if (element.length === 0) {
-    element.remove();
+    element.add('hidden');
   } else {
     element.src = src;
   }
@@ -37,7 +37,7 @@ const fillSrc = (element, src) => {
 
 const fillPrice = (element, price) => {
   if (price.length === 0) {
-    element.remove();
+    element.add('hidden');
   } else {
     element.textContent = `${price} ₽/ночь`;
   }
@@ -63,6 +63,35 @@ const fillCapacity = (number) => {
   }
 };
 
+const getPhotoElement = (photo) => {
+  const photoElement = document.querySelector('img');
+
+  photoElement.classList.add('popup__photo');
+  photoElement.src = photo;
+
+  return photoElement;
+};
+
+const getFeatureElement = (feature) => {
+  const featureElement = document.createElement('li');
+  featureElement.classList.add('popup__feature');
+  featureElement.classList.add(`popup__feature--${feature}`);
+  return featureElement;
+};
+
+const fillGroupElements = (element, elementsData, elementFunction) => {
+  if (elementsData.length === 0) {
+    element.add('hidden');
+  } else {
+    const elementFragment = document.createDocumentFragment();
+    elementsData.forEach((item) => {
+      elementFragment.append(elementFunction(item));
+    });
+
+    element.replaceChildren(elementFragment);
+  }
+};
+
 const renderOffer = (card) => {
   const {offer} = card;
   const cardElement = cardTemplate.cloneNode(true);
@@ -75,6 +104,8 @@ const renderOffer = (card) => {
   const avatar = cardElement.querySelector('.popup__avatar');
   const price = cardElement.querySelector('.popup__text--price');
   const capacity = cardElement.querySelector('.popup__text--capacity');
+  const photos = cardElement.querySelector('.popup__photos');
+  const features = cardElement.querySelector('.popup__features');
 
   fillTextContent(title, card.offer.title, card.offer.title);
   fillTextContent(address, card.offer.address, card.offer.address);
@@ -84,25 +115,17 @@ const renderOffer = (card) => {
   fillSrc(avatar, card.author.avatar);
   fillPrice(price, card.offer.price);
   fillTextContentProperties(capacity, card.offer.rooms, card.offer.guests, fillCapacity(offer));
+  fillGroupElements(features, card.offer.features, getFeatureElement);
+  fillGroupElements(photos, card.offer.photos, getPhotoElement);
 
-  const features = cardElement.querySelector('.popup__features');
-  const modifiers = card.offer.features.map((feature) => `popup__feature--${feature}`);
-  features.querySelectorAll('.popup__feature').forEach((item) => {
-    const modifier = item.classList[1];
+  // const modifiers = card.offer.features.map((feature) => `popup__feature--${feature}`);
+  // features.querySelectorAll('.popup__feature').forEach((item) => {
+  //   const modifier = item.classList[1];
 
-    if (!modifiers.includes(modifier)) {
-      item.remove();
-    }
-  });
-
-  const popupPhoto = cardElement.querySelector('.popup__photos');
-  const clonePhotoTemplate = popupPhoto.querySelector('img');
-  for (let index = 0; index < card.offer.photos.length; index++) {
-    const clonePhoto = clonePhotoTemplate.cloneNode(true);
-    clonePhoto.src = card.offer.photos[index];
-    popupPhoto.appendChild(clonePhoto);
-  }
-  clonePhotoTemplate.remove();
+  //   if (!modifiers.includes(modifier)) {
+  //     item.remove();
+  //   }
+  // });
 
   return cardElement;
 };
