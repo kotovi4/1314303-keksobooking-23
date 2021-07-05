@@ -36,7 +36,7 @@ const fillSrc = (element, src) => {
 };
 
 const fillPrice = (element, price) => {
-  if (price.length === 0) {
+  if (typeof price !== 'number') {
     element.add('hidden');
   } else {
     element.textContent = `${price} ₽/ночь`;
