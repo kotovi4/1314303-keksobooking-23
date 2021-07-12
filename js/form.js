@@ -21,8 +21,9 @@ const adForm = document.querySelector('.ad-form');
 const titleInput = adForm.querySelector('#title');
 const priceInput = adForm.querySelector('#price');
 const typeField = adForm.querySelector('#type');
-const capacityInput = adForm.querySelectorAll('option');
-
+const capacitySelect = adForm.querySelector('#capacity');
+const capacityInput = capacitySelect.querySelectorAll('option');
+const roomNumberSelect = adForm.querySelector('#room_number');
 
 // const disabledMapForm = () => {
 //   adForm.classList.add('ad-form--disabled');
@@ -103,16 +104,17 @@ if (priceInput) {
   priceInput.reportValidity();
 }
 
-if (guests) {
-  guests.forEach((roomsNumber) => {
-    capacityInput.forEach((option) => {
-      if (Number(option.value) === roomsNumber) {
-        option.disabled = false;
-        option.selected = true;
-      }
-    });
+const switchGuests = (rooms) => {
+  capacityInput.forEach((item) => {
+    item.disabled = !guests[rooms].includes(`${item.value}`);
   });
-}
+};
+
+switchGuests('1');
+
+roomNumberSelect.addEventListener('change', (evt) => {
+  switchGuests(evt.target.value);
+});
 
 // export {
 //   disabledMapForm,
