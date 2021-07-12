@@ -9,10 +9,19 @@ const minPrices = {
   'bungalow': 0,
 };
 
+const guests = {
+  1: ['1'],
+  2: ['1', '2'],
+  3: ['1', '2', '3'],
+  100: ['0'],
+};
+
 const adForm = document.querySelector('.ad-form');
 const titleInput = adForm.querySelector('#title');
 const priceInput = adForm.querySelector('#price');
 const typeField = adForm.querySelector('#type');
+const capacityInput = adForm.querySelectorAll('option');
+
 
 // const disabledMapForm = () => {
 //   adForm.classList.add('ad-form--disabled');
@@ -91,6 +100,17 @@ if (priceInput) {
     }
   });
   priceInput.reportValidity();
+}
+
+if (guests) {
+  guests.forEach((roomsNumber) => {
+    capacityInput.forEach((option) => {
+      if (Number(option.value) === roomsNumber) {
+        option.disabled = false;
+        option.selected = true;
+      }
+    });
+  });
 }
 
 // export {
