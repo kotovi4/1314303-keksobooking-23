@@ -17,6 +17,7 @@ const guests = {
 };
 
 const adForm = document.querySelector('.ad-form');
+// const mapFilters = document.querySelector('.map__filters');
 const titleInput = adForm.querySelector('#title');
 const priceInput = adForm.querySelector('#price');
 const typeField = adForm.querySelector('#type');
