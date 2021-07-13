@@ -24,6 +24,8 @@ const typeField = adForm.querySelector('#type');
 const capacitySelect = adForm.querySelector('#capacity');
 const capacityInput = capacitySelect.querySelectorAll('option');
 const roomNumberSelect = adForm.querySelector('#room_number');
+const checkInField = adForm.querySelector('#timein');
+const checkOutField = adForm.querySelector('#timeout');
 
 // const disabledMapForm = () => {
 //   adForm.classList.add('ad-form--disabled');
@@ -104,6 +106,13 @@ if (priceInput) {
   priceInput.reportValidity();
 }
 
+const onTypeChange = () => {
+  priceInput.placeholder = minPrices[typeField.value];
+  priceInput.min = minPrices[typeField.value];
+};
+
+typeField.addEventListener('change', onTypeChange);
+
 const switchGuests = (rooms) => {
   capacityInput.forEach((item) => {
     item.disabled = !guests[rooms].includes(`${item.value}`);
@@ -115,6 +124,17 @@ switchGuests('1');
 roomNumberSelect.addEventListener('change', (evt) => {
   switchGuests(evt.target.value);
 });
+
+const checkInChange = () => {
+  checkOutField.value = checkInField.value;
+};
+
+const checkOutChange = () => {
+  checkInField.value = checkOutField.value;
+};
+
+checkInField.addEventListener('change', checkInChange);
+checkOutField.addEventListener('change', checkOutChange);
 
 // export {
 //   disabledMapForm,
