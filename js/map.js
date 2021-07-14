@@ -1,5 +1,6 @@
-// import {renderOffer} from './card.js';
+import {renderOffer} from './card.js';
 import {activateMapForm} from './form.js';
+import {getOffers, NUMBER_OF_OFFERS} from './data.js';
 
 const addressField = document.querySelector('#address');
 
@@ -14,8 +15,7 @@ const map = L.map('map-canvas')
   }).setView(cityCenter, 12);
 
 L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  {
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
@@ -32,17 +32,16 @@ const secondaryPinIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const secondaryPinMarker = L.marker(cityCenter, {
-  draggable: true,
-  icon: secondaryPinIcon,
-});
-secondaryPinMarker.addTo(map);
-
 const mainPinMarker = L.marker(cityCenter, {
   draggable: true,
   icon: mainPinIcon,
 });
 mainPinMarker.addTo(map);
+
+const secondaryPinMarker = L.marker(cityCenter, {
+  icon: secondaryPinIcon,
+});
+secondaryPinMarker.addTo(map);
 
 const setAddress = ({lat, lng}) => {
   addressField.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
@@ -54,3 +53,20 @@ setAddress(cityCenter);
 mainPinMarker.on('moveend', (evt) => {
   setAddress(evt.target.getLatLng());
 });
+
+const renderSecondaryMarkers = (data) => {
+  data.forEach((offer) => {
+    const marker = L.marker({
+      lat: offer.location.lat,
+      lng: offer.location.lng,
+    }, {
+      icon: secondaryPinIcon,
+    });
+
+    marker
+      .addTo(map)
+      .bindPopup(renderOffer(offer));
+  });
+};
+
+renderSecondaryMarkers(getOffers(NUMBER_OF_OFFERS));
