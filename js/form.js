@@ -7,6 +7,7 @@ const minPrices = {
   'palace': 10000,
   'house': 5000,
   'bungalow': 0,
+  'hotel': 3000,
 };
 
 const guests = {
@@ -17,7 +18,7 @@ const guests = {
 };
 
 const adForm = document.querySelector('.ad-form');
-// const mapFilters = document.querySelector('.map__filters');
+const mapFilters = document.querySelector('.map__filters');
 const titleInput = adForm.querySelector('#title');
 const priceInput = adForm.querySelector('#price');
 const typeField = adForm.querySelector('#type');
@@ -27,36 +28,39 @@ const roomNumberSelect = adForm.querySelector('#room_number');
 const checkInField = adForm.querySelector('#timein');
 const checkOutField = adForm.querySelector('#timeout');
 
-// const disabledMapForm = () => {
-//   adForm.classList.add('ad-form--disabled');
-//   adForm.querySelectorAll('fieldset').forEach((fieldset) => {
-//     fieldset.disabled = true;
-//   });
 
-//   mapFilters.classList.add('map__filters--disabled');
-//   mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
-//     filter.disabled = true;
-//   });
-//   mapFilters.querySelectorAll('.map__features').forEach((feature) => {
-//     feature.disabled = true;
-//   });
-// };
+const disabledMapForm = () => {
+  adForm.classList.add('ad-form--disabled');
+  adForm.querySelectorAll('fieldset').forEach((fieldset) => {
+    fieldset.disabled = true;
+  });
 
-// const activateMapForm = () => {
-//   adForm.classList.remove('ad-form--disabled');
+  mapFilters.classList.add('map__filters--disabled');
+  mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
+    filter.disabled = true;
+  });
+  mapFilters.querySelectorAll('.map__features').forEach((feature) => {
+    feature.disabled = true;
+  });
+};
 
-//   adForm.querySelectorAll('fieldset').forEach((fieldset) => {
-//     fieldset.disabled = false;
-//   });
+disabledMapForm();
 
-//   mapFilters.classList.remove('map__filters--disabled');
-//   mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
-//     filter.disabled = false;
-//   });
-//   mapFilters.querySelectorAll('.map__features').forEach((feature) => {
-//     feature.disabled = false;
-//   });
-// };
+const activateMapForm = () => {
+  adForm.classList.remove('ad-form--disabled');
+
+  adForm.querySelectorAll('fieldset').forEach((fieldset) => {
+    fieldset.disabled = false;
+  });
+
+  mapFilters.classList.remove('map__filters--disabled');
+  mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
+    filter.disabled = false;
+  });
+  mapFilters.querySelectorAll('.map__features').forEach((feature) => {
+    feature.disabled = false;
+  });
+};
 
 if (titleInput) {
   titleInput.addEventListener('invalid', () => {
@@ -136,7 +140,7 @@ const checkOutChange = () => {
 checkInField.addEventListener('change', checkInChange);
 checkOutField.addEventListener('change', checkOutChange);
 
-// export {
-//   disabledMapForm,
-//   activateMapForm
-// };
+export {
+  activateMapForm,
+  disabledMapForm
+};

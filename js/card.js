@@ -1,6 +1,6 @@
-import {createOffer} from './data.js';
+// import {createOffer} from './data.js';
 
-const mapCanvas = document.querySelector('.map__canvas');
+// const mapCanvas = document.querySelector('.map__canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const TYPES = {
@@ -118,16 +118,10 @@ const renderOffer = (card) => {
   fillGroupElements(features, card.offer.features, getFeatureElement);
   fillGroupElements(photos, card.offer.photos, getPhotoElement);
 
-  // const modifiers = card.offer.features.map((feature) => `popup__feature--${feature}`);
-  // features.querySelectorAll('.popup__feature').forEach((item) => {
-  //   const modifier = item.classList[1];
-
-  //   if (!modifiers.includes(modifier)) {
-  //     item.remove();
-  //   }
-  // });
-
   return cardElement;
 };
 
-mapCanvas.appendChild(renderOffer(createOffer()));
+// mapCanvas.appendChild(renderOffer(createOffer()));
+export {
+  renderOffer
+};
