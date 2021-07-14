@@ -63,15 +63,6 @@ const fillCapacity = (number) => {
   }
 };
 
-const getPhotoElement = (photo) => {
-  const photoElement = document.querySelector('img');
-
-  photoElement.classList.add('popup__photo');
-  photoElement.src = photo;
-
-  return photoElement;
-};
-
 const getFeatureElement = (feature) => {
   const featureElement = document.createElement('li');
   featureElement.classList.add('popup__feature');
@@ -116,7 +107,21 @@ const renderOffer = (card) => {
   fillPrice(price, card.offer.price);
   fillTextContentProperties(capacity, card.offer.rooms, card.offer.guests, fillCapacity(offer));
   fillGroupElements(features, card.offer.features, getFeatureElement);
-  fillGroupElements(photos, card.offer.photos, getPhotoElement);
+
+  if (card.offer.photos && card.offer.photos.length > 0) {
+    const photoItem = photos.querySelector('.popup__photo');
+    const copyOfferPhotos = card.offer.photos.slice();
+
+    copyOfferPhotos.forEach((photo) => {
+      const photoElement = photoItem.cloneNode(true);
+      photoElement.src = photo;
+      photos.appendChild(photoElement);
+    });
+
+    photos.children[0].remove();
+  } else {
+    photos.classList.add('hidden');
+  }
 
   return cardElement;
 };

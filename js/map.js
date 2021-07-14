@@ -38,11 +38,6 @@ const mainPinMarker = L.marker(cityCenter, {
 });
 mainPinMarker.addTo(map);
 
-const secondaryPinMarker = L.marker(cityCenter, {
-  icon: secondaryPinIcon,
-});
-secondaryPinMarker.addTo(map);
-
 const setAddress = ({lat, lng}) => {
   addressField.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
   addressField.disabled = true;
