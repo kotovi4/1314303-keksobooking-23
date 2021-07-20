@@ -1,3 +1,5 @@
+import {sendData, onSuccess, onFail} from './api.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_PER_NIGHT = 1000000;
@@ -51,14 +53,6 @@ const activateMapForm = () => {
 
   adForm.querySelectorAll('fieldset').forEach((fieldset) => {
     fieldset.disabled = false;
-  });
-
-  mapFilters.classList.remove('map__filters--disabled');
-  mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
-    filter.disabled = false;
-  });
-  mapFilters.querySelectorAll('.map__features').forEach((feature) => {
-    feature.disabled = false;
   });
 };
 
@@ -139,6 +133,12 @@ const checkOutChange = () => {
 
 checkInField.addEventListener('change', checkInChange);
 checkOutField.addEventListener('change', checkOutChange);
+
+adForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+
+  sendData(onSuccess, onFail, new FormData(evt.target));
+});
 
 export {
   activateMapForm,

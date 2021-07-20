@@ -1,6 +1,6 @@
 import {renderOffer} from './card.js';
 import {activateMapForm} from './form.js';
-import {getOffers, NUMBER_OF_OFFERS} from './data.js';
+import {getData, onSuccessGetData} from './api.js';
 
 const addressField = document.querySelector('#address');
 
@@ -12,6 +12,7 @@ const cityCenter = {
 const map = L.map('map-canvas')
   .on('load', () => {
     activateMapForm('active');
+    getData(onSuccessGetData);
   }).setView(cityCenter, 12);
 
 L.tileLayer(
@@ -64,4 +65,6 @@ const renderSecondaryMarkers = (data) => {
   });
 };
 
-renderSecondaryMarkers(getOffers(NUMBER_OF_OFFERS));
+export {
+  renderSecondaryMarkers
+};
