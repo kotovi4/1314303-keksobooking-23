@@ -64,6 +64,15 @@ const renderSecondaryMarkers = (data) => {
   });
 };
 
+const resetMap = () => {
+  mainPinMarker
+    .setLatLng(CITY_CENTER);
+  setTimeout(() => {
+    addressField.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
+  }, 0);
+};
+
 export {
-  renderSecondaryMarkers
+  renderSecondaryMarkers,
+  resetMap
 };

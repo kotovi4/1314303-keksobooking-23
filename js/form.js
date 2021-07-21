@@ -1,4 +1,5 @@
 import {sendData, onSuccess, onFail} from './api.js';
+import {resetMap} from './map.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -29,6 +30,7 @@ const capacityInput = capacitySelect.querySelectorAll('option');
 const roomNumberSelect = adForm.querySelector('#room_number');
 const checkInField = adForm.querySelector('#timein');
 const checkOutField = adForm.querySelector('#timeout');
+const resetButton = document.querySelector('.ad-form__reset');
 
 
 const disabledMapForm = () => {
@@ -140,7 +142,20 @@ adForm.addEventListener('submit', (evt) => {
   sendData(onSuccess, onFail, new FormData(evt.target));
 });
 
+const resetForm = () => {
+  adForm.reset();
+  mapFilters.reset();
+
+  priceInput.placeholder = 1000;
+  priceInput.min = 1000;
+
+  resetMap();
+};
+
+resetButton.addEventListener('click', resetForm);
+
 export {
   activateMapForm,
-  disabledMapForm
+  disabledMapForm,
+  resetForm
 };

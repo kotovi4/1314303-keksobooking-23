@@ -1,5 +1,6 @@
 import {showAlert} from './utils.js';
 import {renderSecondaryMarkers} from './map.js';
+import {resetForm} from './form.js';
 
 const mapFilters = document.querySelector('.map__filters');
 
@@ -42,6 +43,8 @@ const onSuccess = () => {
   };
 
   document.addEventListener('click', handleDocumentClick);
+
+  resetForm();
 };
 
 const onFail = () => {
