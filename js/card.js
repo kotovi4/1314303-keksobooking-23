@@ -1,5 +1,3 @@
-// import {createOffer} from './data.js';
-
 // const mapCanvas = document.querySelector('.map__canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
@@ -12,7 +10,7 @@ const TYPES = {
 };
 
 const fillTextContent = (element, property, textContent) => {
-  if (property.length === 0) {
+  if (!property || property.length === 0) {
     element.classList.add('hidden');
   } else {
     element.textContent = textContent;
@@ -71,8 +69,8 @@ const getFeatureElement = (feature) => {
 };
 
 const fillGroupElements = (element, elementsData, elementFunction) => {
-  if (elementsData.length === 0) {
-    element.add('hidden');
+  if (!elementsData || elementsData.length === 0) {
+    element.classList.add('hidden');
   } else {
     const elementFragment = document.createDocumentFragment();
     elementsData.forEach((item) => {

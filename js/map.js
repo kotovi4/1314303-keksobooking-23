@@ -1,10 +1,10 @@
 import {renderOffer} from './card.js';
 import {activateMapForm} from './form.js';
-import {getOffers, NUMBER_OF_OFFERS} from './data.js';
+import {getData, onSuccessGetData} from './api.js';
 
 const addressField = document.querySelector('#address');
 
-const cityCenter = {
+const CITY_CENTER = {
   lat: 35.681700,
   lng: 139.753891,
 };
@@ -12,7 +12,8 @@ const cityCenter = {
 const map = L.map('map-canvas')
   .on('load', () => {
     activateMapForm('active');
-  }).setView(cityCenter, 12);
+    getData(onSuccessGetData);
+  }).setView(CITY_CENTER, 12);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -32,7 +33,7 @@ const secondaryPinIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const mainPinMarker = L.marker(cityCenter, {
+const mainPinMarker = L.marker(CITY_CENTER, {
   draggable: true,
   icon: mainPinIcon,
 });
@@ -40,10 +41,9 @@ mainPinMarker.addTo(map);
 
 const setAddress = ({lat, lng}) => {
   addressField.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-  addressField.disabled = true;
 };
 
-setAddress(cityCenter);
+setAddress(CITY_CENTER);
 
 mainPinMarker.on('moveend', (evt) => {
   setAddress(evt.target.getLatLng());
@@ -64,4 +64,15 @@ const renderSecondaryMarkers = (data) => {
   });
 };
 
-renderSecondaryMarkers(getOffers(NUMBER_OF_OFFERS));
+const resetMap = () => {
+  mainPinMarker
+    .setLatLng(CITY_CENTER);
+  setTimeout(() => {
+    addressField.value = `${CITY_CENTER.lat}, ${CITY_CENTER.lng}`;
+  }, 0);
+};
+
+export {
+  renderSecondaryMarkers,
+  resetMap
+};

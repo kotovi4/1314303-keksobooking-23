@@ -1,3 +1,6 @@
+import {sendData, onSuccess, onFail} from './api.js';
+import {resetMap} from './map.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE_PER_NIGHT = 1000000;
@@ -27,6 +30,7 @@ const capacityInput = capacitySelect.querySelectorAll('option');
 const roomNumberSelect = adForm.querySelector('#room_number');
 const checkInField = adForm.querySelector('#timein');
 const checkOutField = adForm.querySelector('#timeout');
+const resetButton = document.querySelector('.ad-form__reset');
 
 
 const disabledMapForm = () => {
@@ -51,14 +55,6 @@ const activateMapForm = () => {
 
   adForm.querySelectorAll('fieldset').forEach((fieldset) => {
     fieldset.disabled = false;
-  });
-
-  mapFilters.classList.remove('map__filters--disabled');
-  mapFilters.querySelectorAll('.map__filter').forEach((filter) => {
-    filter.disabled = false;
-  });
-  mapFilters.querySelectorAll('.map__features').forEach((feature) => {
-    feature.disabled = false;
   });
 };
 
@@ -140,7 +136,26 @@ const checkOutChange = () => {
 checkInField.addEventListener('change', checkInChange);
 checkOutField.addEventListener('change', checkOutChange);
 
+adForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+
+  sendData(onSuccess, onFail, new FormData(evt.target));
+});
+
+const resetForm = () => {
+  adForm.reset();
+  mapFilters.reset();
+
+  priceInput.placeholder = 1000;
+  priceInput.min = 1000;
+
+  resetMap();
+};
+
+resetButton.addEventListener('click', resetForm);
+
 export {
   activateMapForm,
-  disabledMapForm
+  disabledMapForm,
+  resetForm
 };
