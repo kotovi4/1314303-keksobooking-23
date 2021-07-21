@@ -72,7 +72,18 @@ const resetMap = () => {
   }, 0);
 };
 
+// удаление маркеров
+const removeSecondaryMarkers = () => {
+  map
+    .eachLayer((marker) => {
+      if (marker instanceof L.Marker && marker !== mainPinMarker) {
+        marker.remove();
+      }
+    });
+};
+
 export {
   renderSecondaryMarkers,
+  removeSecondaryMarkers,
   resetMap
 };

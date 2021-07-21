@@ -1,7 +1,10 @@
 import {showAlert} from './utils.js';
-import {renderSecondaryMarkers} from './map.js';
+import {renderSecondaryMarkers, removeSecondaryMarkers} from './map.js';
 import {resetForm} from './form.js';
+import {filterData} from './filter.js';
+import {debounce} from './utils/debounce.js';
 
+const RENDER_DELAY = 500;
 const mapFilters = document.querySelector('.map__filters');
 
 const onSuccessGetData = (offers) => {
@@ -13,7 +16,14 @@ const onSuccessGetData = (offers) => {
     feature.disabled = false;
   });
 
-  renderSecondaryMarkers(offers);
+  renderSecondaryMarkers(filterData(offers));
+
+  mapFilters.addEventListener('change', () => {
+    (debounce(() => {
+      removeSecondaryMarkers();
+      renderSecondaryMarkers(filterData(offers));
+    }, RENDER_DELAY))();
+  });
 };
 
 const onSuccess = () => {
