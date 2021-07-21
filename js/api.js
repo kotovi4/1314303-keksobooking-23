@@ -73,7 +73,7 @@ const onFail = () => {
 };
 
 // Получение данных
-const getData = (onSuccess) => {
+const getData = (success) => {
   fetch('https://23.javascript.pages.academy/keksobooking/data')
     .then((response) => {
       if (response.ok) {
@@ -83,15 +83,15 @@ const getData = (onSuccess) => {
       }
     })
     .then((offers) => {
-      onSuccess(offers);
+      success(offers);
     })
-    .catch(error => {
+    .catch((error) => {
       showAlert(error);
     });
 };
 
 // Отправка данных
-const sendData = (onSuccess, onFail, body) => {
+const sendData = (success, fail, body) => {
   fetch(
     'https://23.javascript.pages.academy/keksobooking',
     {
@@ -101,13 +101,13 @@ const sendData = (onSuccess, onFail, body) => {
   )
     .then((response) => {
       if (response.ok) {
-        onSuccess();
+        success();
       } else {
-        onFail('Не удалось отправить форму. Попробуйте ещё раз');
+        fail('Не удалось отправить форму. Попробуйте ещё раз');
       }
     })
     .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+      fail('Не удалось отправить форму. Попробуйте ещё раз');
     });
 };
 

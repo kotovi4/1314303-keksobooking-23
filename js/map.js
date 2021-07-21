@@ -4,7 +4,7 @@ import {getData, onSuccessGetData} from './api.js';
 
 const addressField = document.querySelector('#address');
 
-const cityCenter = {
+const CITY_CENTER = {
   lat: 35.681700,
   lng: 139.753891,
 };
@@ -13,7 +13,7 @@ const map = L.map('map-canvas')
   .on('load', () => {
     activateMapForm('active');
     getData(onSuccessGetData);
-  }).setView(cityCenter, 12);
+  }).setView(CITY_CENTER, 12);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -33,7 +33,7 @@ const secondaryPinIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const mainPinMarker = L.marker(cityCenter, {
+const mainPinMarker = L.marker(CITY_CENTER, {
   draggable: true,
   icon: mainPinIcon,
 });
@@ -41,10 +41,9 @@ mainPinMarker.addTo(map);
 
 const setAddress = ({lat, lng}) => {
   addressField.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-  addressField.disabled = true;
 };
 
-setAddress(cityCenter);
+setAddress(CITY_CENTER);
 
 mainPinMarker.on('moveend', (evt) => {
   setAddress(evt.target.getLatLng());
