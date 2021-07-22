@@ -45,3 +45,8 @@ fileChooserPhoto.addEventListener('change', () => {
     reader.readAsDataURL(file);
   }
 });
+
+export {
+  previewAvatar,
+  upload
+};

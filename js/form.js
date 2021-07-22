@@ -1,5 +1,6 @@
 import {sendData, onSuccess, onFail} from './api.js';
 import {resetMap} from './map.js';
+import {previewAvatar, upload} from './avatar.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -145,6 +146,8 @@ adForm.addEventListener('submit', (evt) => {
 const resetForm = () => {
   adForm.reset();
   mapFilters.reset();
+  previewAvatar.src = 'img/muffin-grey.svg';
+  upload.removeChild(upload.firstChild);
 
   priceInput.placeholder = 1000;
   priceInput.min = 1000;

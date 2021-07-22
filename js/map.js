@@ -2,12 +2,12 @@ import {renderOffer} from './card.js';
 import {activateMapForm} from './form.js';
 import {getData, onSuccessGetData} from './api.js';
 
-const addressField = document.querySelector('#address');
-
 const CITY_CENTER = {
   lat: 35.681700,
   lng: 139.753891,
 };
+
+const addressField = document.querySelector('#address');
 
 const map = L.map('map-canvas')
   .on('load', () => {
