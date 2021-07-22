@@ -1,4 +1,3 @@
-// const mapCanvas = document.querySelector('.map__canvas');
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const TYPES = {
@@ -124,7 +123,6 @@ const renderOffer = (card) => {
   return cardElement;
 };
 
-// mapCanvas.appendChild(renderOffer(createOffer()));
 export {
   renderOffer
 };
